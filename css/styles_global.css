@@ -1,0 +1,49 @@
+/* -----------------------------------------------
+	COVID19 TRACKER
+------------------------------------------------*/
+
+/* Data World */
+#global,#continent{width: 100%;margin-bottom:50px;display: none;}
+span{font-size: 12px;}
+.flagCountry{width: 70px; height: 50px;}
+h5{font-weight:bold;margin: 15px 0px;letter-spacing: 1px;line-height: 200%; }
+h6{font-style:italic;margin: 20px 0px;text-align: justify;letter-spacing: 1px;line-height: 200%; }
+.plusSign{margin-top: 0px;}
+#imgCfmCovid{width: 100%; bottom: 0; position: absolute;}
+#imgVaccine,#imgVaccineDetails,.imgVariant,.imgMedicine{width: 100%;border-radius: 20px;}
+.btnAboutTheData{position:relative; left: 0px; padding: 0px; margin: 0px; width: 135px; border-radius: 0px 0px 20px 0px; height: 38px;}
+.modal-content{padding: 10px;}
+thead{display:table;width:100%;table-layout:fixed;}
+.theadCities th{border: 2.5px solid #ddd;}
+#table td:nth-child(2){font-weight: bold;}
+#table td:nth-child(3){font-weight: bold; color: #186FB5;}
+#table td:nth-child(4){font-weight: bold; color: #006233;}
+#table td:nth-child(5){font-weight: bold; color: #E41E20;}
+#table td:nth-child(6){font-weight: bold; color: grey;}
+#table{display:block;height:500px;overflow:scroll; width: 100%;}
+#table tr {display:table;width:100%;table-layout:fixed;}
+#table::-webkit-scrollbar {display: none;}
+.sortable-table thead .th-contries[data-sort-direction="1"]:after{content:"\25B4";}
+.sortable-table thead .th-contries[data-sort-direction="-1"]:after{content:"\25BE"}
+.sortable-table thead .numeric-sort[data-sort-direction="1"]:after{content:"\25B4"}
+.sortable-table thead .numeric-sort[data-sort-direction="-1"]:after{content:"\25BE"}
+.numeric-sort,.th-contries,.theadCitiesProvinces{cursor:pointer;}
+.cursorPointer{cursor:pointer;color: #821CFB!important;}
+.cursorPointer:hover{color: #B50000!important;font-weight: bold!important;}
+
+.imgContinent{width: 100%; margin-top: 60px;}
+.global{margin: 25px 25px 40px 25px;}
+#GlobalCases{color: #186FB5;text-align: center;}
+#GlobalRecovered{color: #006233;text-align: center;}
+#GlobalDeaths{color: #E41E20;text-align: center;}
+
+.continent{margin: 25px;}
+#txtNorthAmerica,#NorthAmerica{color: #FFC90F;text-align: center;}
+#txtSouthAmerica,#SouthAmerica{color: #19AA00;text-align: center;}
+#txtEurope,#Europe{color: #C82D63;text-align: center;}
+#txtAsia,#Asia{color: #FF7F58;text-align: center;}
+#txtAfrica,#Africa{color: #58676C;text-align: center;}
+#txtOceania,#Oceania{color: #01A2D4;text-align: center;}
+
+
+

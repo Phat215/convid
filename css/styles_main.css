@@ -1,0 +1,68 @@
+/* -----------------------------------------------
+	COVID19 TRACKER
+------------------------------------------------*/
+
+/* Init */
+body{background-color: #f1f2f5}
+html{scroll-behavior: smooth;}
+.logo{width: 80px; height: 80px; margin-right: 20px;margin-bottom: 20px;}
+.footer{font-weight: bold; margin: 50px 0px 30px 0px;text-align: center;}
+.footer > a{color:#733351; }
+#designedBy{font-size: 1rem;}
+.text-center{text-align: center;}
+.text-bold{font-weight: bold;}
+.pad0{padding: 0px;}
+
+/* Main */
+.title{display: inline;font-size: 300%;font-weight:bold;color:#309FB5;}
+.description{font-size:165%;color:#309FB5;}
+.time{color:#7652B5; font-size:120%;margin-bottom: 30px;}
+.search{padding: 15px 30px;border: 1.5px solid #309FB5;background-color: #E8E8E8;border-radius: 100px;display: flex;align-items: center;width: 100%;max-width: 350px;margin-bottom: 20px; text-align: center; height: 40px; float: right;}
+.search-icon{flex: 1;font-size: 16px;}
+.search-input{border: 0;outline: none;width: 100%;padding: 0 15px; color: #1B7EB5; background-color: #E8E8E8;font-style: italic;}
+.SwitchBar{position:absolute; right: 0px; padding: 0px; margin: 0px; width: 135px; border-radius: 0px 0px 0px 20px; height: 38px;}
+.vnLogo,.WorldLogo{position:absolute; right: 90px; top: 2px; height: 32px;}
+.vnDetailsFlag{width: 100%;border-radius: 10px;height: 300px;}
+h2{text-align: center;margin: 20px; font-weight: bold;}
+.txtVNTracker {display: none;}
+.btnVNTracker:hover + .txtVNTracker {display: block;position: absolute;background-color: #309FB5;color: white;border-radius: 6px;font-size: 12px;padding: 5px;right: 10px;top: 50px;width: 100%;}
+#SwitchLanguages{position: absolute;top:2px; right:0px;padding:0px;color: black; font-weight: bold;font-size:20px;}
+#txtAboutData{position: absolute;top:1px; left:0px;padding:0px;color: black; font-weight: bold;font-size:18px;width: 125px;}
+option{font-weight: bold;background-color: #309FB5;}
+.SoftwareInfo{table-layout: fixed;text-align:justify;}
+#aboutGuide{line-height: 50px;}
+#aboutGuide td:nth-child(1){width:30%;font-weight: bold;}
+#countries{margin-bottom: 40px;}
+#fieldsetGlobal,#fieldsetContinent {margin:0;padding:0;border: 3px solid #ddd; border-radius: 30px;}
+#fieldsetContinent{margin-top:20px;}
+#txtGlobal{width: 200px;text-align: center;margin: 0px;font-weight: bold;font-size: 40px;}
+#txtContinent{width: 300px;text-align: center;margin: 0px;font-weight: bold;font-size: 40px;}
+#footer{display: none;}
+.modal-title{font-weight: bold;}
+.imgBrowserIcon{width:40px; height:40px;margin-right:10px;}
+.imgBrowserEdge{width:36px; height:36px;margin-right:10px;}
+.reference{float:right;}
+.linkContact{color: #212529;}
+a:hover{text-decoration: none;color: black;font-weight:bold;}
+.Line{height:1px;}
+hr{border: 0;border-top: 2px solid #ddd;text-align: center; width: 35%;}
+
+
+/* Loader */
+.loader {margin-top: 15%;border: 10px solid #f3f3f3;border-top: 10px solid #65506D;border-radius: 50%;width: 120px; height: 120px;-webkit-animation: spin 1.75s linear infinite;animation: spin 1.75s linear infinite;}
+@-webkit-keyframes spin{0%{-webkit-transform: rotate(0deg);}100% {-webkit-transform: rotate(360deg);}}
+@keyframes spin{0%{transform: rotate(0deg);}100%{transform:rotate(360deg);}}
+
+/* Scroll Top */
+#scrollTop{display: none;position: fixed;bottom: 20px;right: 30px;z-index: 99;font-size: 18px;border: none;outline: none;background-color: #999;color: white;cursor: pointer;padding: 15px;border-radius: 50%;opacity: 0.75;
+}
+#scrollTop:hover{background-color: #309FB5;}
+
+/* Refesh Page */
+#refeshPage{position: absolute;top: 10px;left: 49%;z-index: 99;font-size: 22px; color: #1c1e21; display: none;}
+
+/* Scroll Bar */
+::-webkit-scrollbar {width: 8px;}
+::-webkit-scrollbar-track {background: #f1f1f1;}
+::-webkit-scrollbar-thumb {background: #999;}
+::-webkit-scrollbar-thumb:hover {background: #555;}
