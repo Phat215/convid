@@ -1,0 +1,507 @@
+<!DOCTYPE HTML>
+<html lang="EN">
+<head>
+	<meta charset="UTF-8">
+	<title>Covid-19 Tracker</title>
+	<link rel="icon" href="https://img.mlo-online.com/files/base/ebm/mlo/image/2020/05/Pixabay_coronavirus_5107715_1280.5eb16e6f5f05a.png?auto=format&w=720" type="image" sizes="16x16">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Refresh Caches -->
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<!-- Bootstrap & JQuery CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Styles -->
+	<link rel="stylesheet" href="./css/styles_main.css">
+	<link rel="stylesheet" href="./css/styles_global.css">
+	<link rel="stylesheet" href="./css/styles_vietnam.css">
+	<link rel="stylesheet" href="./css/styles_darkmode.css">
+	<link rel="stylesheet" href="./css/styles_responsive.css">
+	<!-- PWA -->
+	<link rel="manifest"   href="./manifest.json">
+	<link rel="apple-touch-icon" href="./img/Covid19_519.png">
+	<!-- Script Main -->
+	<script src="./js/main.js"></script>
+	<script src="./js/functions/reloadPage.js"></script>
+	<script src="./js/serviceWorker/serviceWorker.js"></script>
+</head>
+
+<!-- Covid-19 Tracker -->
+<body>
+	<!-- Refresh Page -->
+	<i class="fa fa-refresh" onClick="refreshPage()" style="text-align: center;" id="refeshPage"></i>
+	
+	<!-- ScrollTop -->
+	<i class="fa fa-arrow-up" id="scrollTop" title="Go to top"></i>
+	
+	<!-- Read More Selection -->
+	<div class="btn btn-info btnAboutTheData">
+		<select class="btn" id="txtAboutData">
+			<option value="">Read More</option>
+			<option value="AboutTheData">• About The Data</option>
+			<option value="VaccineDetails">• Vaccine Details</option>
+			<option value="VaccineTechnology">• Vaccine Technology</option>
+			<option value="CoronavirusVariant">• Coronavirus Variant</option>
+			<option value="TreatmentMedicine">• Treatment Medicine</option>
+			<option value="SoftwareInfo">• Software Info</option>
+		</select>
+	</div>
+
+	<!-- Switch Bar -->
+	<div class="btn btn-info SwitchBar">
+		<!-- Switch Languages -->
+		<select class="btn" id="SwitchLanguages">
+			<option value="EN">EN</option>
+			<option value="VN">VN</option>
+		</select>
+		<!-- Switch DarkLight -->
+		<i class="fa tool-icon fa-moon-o" id="darkMode"></i>
+		<!-- Switch Tracker -->
+		<div class="btnVNTracker"><img id="switchTracker" class="vnLogo" src="https://img.icons8.com/color/452/vietnam-circular.png"></div>
+		<span class="txtVNTracker" id="txtVNTracker">Vietnam Tracker</span>
+	</div>
+	
+	<!-- DATA WORLD -->
+	<div class="container" id="contentWorld">
+		<!-- Title -->
+		<div class="text-center" id="headerWorld">
+			<img class="logo" src="https://img.mlo-online.com/files/base/ebm/mlo/image/2020/05/Pixabay_coronavirus_5107715_1280.5eb16e6f5f05a.png?auto=format&w=720">
+			<p class="title text-center" id="txtTitle">Covid-19 Tracker</p>
+		</div>
+		<p class="text-center description" id="txtDesc">The situation of the Coronavirus epidemic data around the World</p>
+		
+		<!-- Time -->
+		<div class="text-center time"><div class="text-bold" id="time"></div>(UTC)</div>
+		
+		<!-- Loader -->
+		<div class="container loader" id="loader"></div>
+		
+		<!-- Global -->
+		<div id="global">
+			<fieldset id="fieldsetGlobal">
+				<legend id="txtGlobal">GLOBAL</legend>
+				<div class="row">
+					<div class="col-md-4 col-4 pad0">
+						<div class="global">
+							<h3 class="TotalCases" id="txtGlobalCases">Total Cases</h3>
+							<h1 id="GlobalCases"></h1>
+							<p class="TotalCases text-bold" id="todayGlobalCases"></p>
+						</div>
+					</div>
+					<div class="col-md-4 col-4 pad0">
+						<div class="global">
+							<h3 class="TotalRecovered" id="txtGlobalRecovered">Total Recovered</h3>
+							<h1 id="GlobalRecovered"></h1>
+							<p class="TotalRecovered text-bold" id="todayGlobalRecovered"></p>
+						</div>
+					</div>
+					<div class="col-md-4 col-4 pad0">
+						<div class="global">
+							<h3 class="TotalDeaths" id="txtGlobalDeaths">Total Deaths</h3>
+							<h1 id="GlobalDeaths"></h1>
+							<p class="TotalDeaths text-bold" id="todayGlobalDeaths"></p>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+		
+		<!-- Countries -->
+		<div id="countries">
+			<div class="search">
+				<input type="text" id="searchInput" class="search-input" placeholder="Searching by names of countries . . .">
+				<i class="search-icon fa fa-search"></i>
+			</div>
+
+			<table class="table table-striped sortable-table">
+				<thead>
+					<tr>
+						<th class="th-contries-flags"></th>
+						<th class="th-contries"  id="th-contries">Countries</th>
+						<th class="numeric-sort" id="th-cases">Cases</th>
+						<th class="numeric-sort" id="th-recovered">Recovered</th>
+						<th class="numeric-sort" id="th-deaths">Deaths</th>
+						<th class="numeric-sort" id="th-tests">Population</th>
+					</tr>
+				</thead>
+				<tbody id="table"></tbody>
+			</table>
+		</div>
+		
+		<!-- Continent -->
+		<hr>
+		<div id="continent">
+			<div class="row">
+				<div class="col-md-12 col-12">
+					<fieldset id="fieldsetContinent">
+						<legend id="txtContinent">CONTINENT</legend>
+						<div class="row">
+							<div class="col-md-4 col-4 pad0">
+								<div class="continent"><h3 id="txtNorthAmerica">North America</h3><h1 id="NorthAmerica"></h1></div>
+							</div>
+							<div class="col-md-4 col-4 pad0">
+								<div class="continent"><h3 id="txtEurope">Europe</h3><h1 id="Europe"></h1></div>
+							</div>
+							<div class="col-md-4 col-4 pad0">
+								<div class="continent"><h3 id="txtAsia">Asia</h3><h1 id="Asia"></h1></div>
+							</div>
+							<div class="col-md-4 col-4 pad0">
+								<div class="continent"><h3 id="txtSouthAmerica">South America</h3><h1 id="SouthAmerica"></h1></div>
+							</div>
+							<div class="col-md-4 col-4 pad0">
+								<div class="continent"><h3 id="txtAfrica">Africa</h3><h1 id="Africa"></h1></div>
+							</div>
+							<div class="col-md-4 col-4 pad0">
+								<div class="continent"><h3 id="txtOceania">Oceania</h3><h1 id="Oceania"></h1></div>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div class="col-md-12 col-12">
+					<img class="imgContinent" src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Location_of_Continents.svg">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- DATA VIETNAM -->
+	<div class="container" id="content">
+		<!-- Total Covid Data -->
+		<div class="row">
+			<strong id="message" class="col-lg-12 col-md-12 col-12">
+				Vietnam Tracker is currently overloaded. <br>  Let's try to reload this page. <br> If you still see this message, please come back later.
+			</strong>
+		</div>
+		
+		<div class="row vnTotal" id="content-total">
+			<div class="col-md-3 col-6 pad0">
+				<div><h3 class="TotalCases" id="txtTotalCases">Total Cases</h3><h1 id="TotalCases"></h1></div>
+			</div>
+			<div class="col-md-3 col-6 pad0">
+				<div><h3 class="TotalRecovered" id="txtTotalRecovered">Total Recovered</h3><h1 id="TotalRecovered"></h1></div>
+			</div>
+			<div class="col-md-3 col-6 pad0">
+				<div><h3 class="TotalDeaths" id="txtTotalDeaths">Total Deaths</h3><h1 id="TotalDeaths"></h1></div>
+			</div>
+			<div class="col-md-3 col-6 pad0">
+				<div><h3 class="Population" id="txtPopulation">Total Population</h3><h1 id="Population"></h1></div>
+			</div>
+		</div>
+		
+		<!-- Detail Info -->
+		<div class="row" id="content-detail">
+			<!-- Rate Info -->
+			<div class="col-lg-5 col-md-4 col-12">
+				<div class="row vnRate">
+					<div class="col-md-12 col-12">
+						<img class="vnDetailsFlag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/640px-Flag_of_Vietnam.svg.png">
+						<span><h2 id="vnName">VIETNAM MAP <i class="fa fa-map-marker mapMarkerIcon"></i></h2></span>
+					</div>
+					<div class="col-md-6 col-6 box pad0">
+						<div><h3 class="IncidenceRate" id="txtIncidenceRate">Incidence Rate</h3><h1 id="IncidenceRate"></h1></div>
+					</div>
+					<div class="col-md-6 col-6 box pad0">
+						<div><h3 class="RecoveryRate" id="txtRecoveryRate">Recovery Rate</h3><h1 id="RecoveryRate"></h1></div>
+					</div>
+					<div class="col-md-6 col-6 box pad0">
+						<div><h3 class="DeathRate" id="txtDeathRate">Death Rate</h3><h1 id="DeathRate"></h1></div>
+					</div>
+					<div class="col-md-6 col-6 box pad0">
+						<div><h3 class="vacFullyVaccinatedRate" id="txtFullyVaccinatedRate">Fully Vaccinated Rate</h3><h1 id="vacFullyVaccinatedRate"></h1></div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Table City Data -->
+			<div class="col-lg-7 col-md-8 col-12">
+				<table class="table table-striped sortable-table">
+					<thead class="theadCities">
+						<tr>
+						  <th class="theadCitiesProvinces" id="th-citiesprovinces">Cities/Provinces</th>
+						  <th class="numeric-sort" id="th-citiesCases">Cases</th>
+						  <th class="numeric-sort" id="th-citiesRecovered">Recovered</th>
+						  <th class="numeric-sort" id="th-citiesDeaths">Deaths</th>
+						</tr>
+					</thead>
+					<tbody id="tableVN">
+					</tbody>
+				</table>
+				<!-- Map -->
+				<div class="btnMapDiv">
+					<div class="text-center text-bold" id="txtViewAsMap">Show Vietnam Map!</div>
+					<img class="btnMap btnMap2" src="https://www.seekpng.com/png/full/398-3986263_how-we-can-help-you-vietnam-illustrated-map.png">
+				</div>
+			</div>
+			
+			<!-- Total Vaccines Data -->
+			<hr>
+			<div class="col-md-12 col-12 boxTitleDetails">
+				<div><h1 class="TitleDetails" id="txtDetailsVaccination">DETAILS VACCINATION</h1></div>
+			</div>
+			<div class="row vnRate" style="width: 100%;">
+				<div class="col-md-4 col-4 VaccinesInfo">
+					<div><h3 class="vaccines" id="txtVaccines">Total Dose Vaccinated</h3><h1 id="vacTotal"></h1></div>
+				</div>
+				<div class="col-md-4 col-4 VaccinesInfo">
+					<div><h3 class="vaccines" id="txtOneDose">Total One Dose</h3><h1 id="vacOneDose"></h1></div>
+				</div>
+				<div class="col-md-4 col-4 VaccinesInfo">
+					<div><h3 class="vaccines" id="txtTwoDose">Total Fully Dose</h3><h1 id="vacTwoDose"></h1></div>
+				</div>
+			</div>
+			
+			<!-- Table Details Vaccines Data -->
+			<div class="col-lg-12 col-md-12 col-12">
+				<table class="table table-striped sortable-table">
+					<thead class="theadCities">
+						<tr>
+						  <th class="theadCitiesProvinces" id="th-citiesprovincesVac">Cities/Provinces</th>
+						  <th class="numeric-sort" id="th-citiesProVac">Dose Vaccinated</th>
+						  <th class="numeric-sort" id="th-citiesOneDose">One Dose</th>
+						  <th class="numeric-sort" id="th-citiesTwoDose">Fully Dose</th>
+						</tr>
+					</thead>
+					<tbody id="tableVNdose">
+					</tbody>
+				</table>
+			</div>
+			
+			<!-- Total Vaccines Distribution -->
+			<hr>
+			<div class="col-md-12 col-12 boxTitleDetails">
+				<div><h1 class="TitleDetails" id="txtVaccineDistribution">VACCINE DISTRIBUTION</h1></div>
+			</div>
+			<div class="row vnRate" style="width: 100%;">
+				
+				<div class="col-md-4 col-4 VaccinesInfo">
+					<div><h3 class="vaccines" id="txtPlanned">Total Planned Vaccines</h3><h1 id="totalPlanned"></h1></div>
+				</div>
+				<div class="col-md-4 col-4 VaccinesInfo">
+					<div><h3 class="vaccines" id="txtRealistic">Total Realistic Vaccines</h3><h1 id="totalRealistic"></h1></div>
+				</div>
+				<div class="col-md-4 col-4 VaccinesInfo">
+					<div><h3 class="vaccines" id="txtDistriRate">Total Distributed Rate</h3><h1 id="totalDistriRate"></h1></div>
+				</div>
+			</div>
+			
+			<!-- Table Detail Vaccines Distribution -->
+			<div class="col-lg-12 col-md-12 col-12">
+				<table class="table table-striped sortable-table">
+					<thead class="theadCities">
+						<tr>
+						  <th class="theadCitiesProvinces" id="th-citiesprovincesVacDistribution">Cities/Provinces</th>
+						  <th class="numeric-sort" id="th-citiesPlanned">Planned Vaccines</th>
+						  <th class="numeric-sort" id="th-citiesRealistic">Realistic Vaccines</th>
+						  <th class="numeric-sort" id="th-citiesDistriRate">Distributed Rate</th>
+						</tr>
+					</thead>
+					<tbody id="tableVNvacDistribution">
+					</tbody>
+				</table>
+			</div>
+			
+			<!-- Chart JS -->
+			<div class="col-md-12 col-12 ChartData" id="AllChart" >
+				<hr>
+				<p class="dailyChart" id="dailyChart">DAILY HISTORY</p>
+				<div class="row p-3">
+					<!-- NationalDailyBtn -->
+					<p class="col-md-6 col-6 btnDailyHistory" onClick="NationalDailyBtn()" id="NationalDailyBtn">NATIONAL</p>
+					<!-- CityProvinceDailyBtn -->
+					<div class="col-md-6 col-6 dropdown" id="CityProvinceDailyBtn">
+						<!-- Most Interest -->
+						<button class="dropdown-toggle btnDailyHistory " id="MostInterest" data-toggle="dropdown">MOST INTEREST</button>
+						<div class="dropdown-menu w-100" aria-labelledby="MostInterest">
+							<a class="dropdown-item w-100" onClick="CityProvinceDaily()" id="hcm">HỒ CHÍ MINH</a>
+							<a class="dropdown-item w-100" onClick="CityProvinceDaily()" id="hn">HÀ NỘI</a>
+							<a class="dropdown-item w-100" onClick="CityProvinceDaily()" id="bd">BÌNH DƯƠNG</a>
+						</div>
+					</div>
+				</div>
+				
+				<!-- National -->
+				<div id="National">
+					<!-- Total Data Chart -->
+					<fieldset id="fieldsetCasesDataChart">
+						<legend id="txtCasesDataChart">CASES</legend>
+						<div class="row">
+							<div class="col-md-6" id="newcasesChartDiv"><canvas id="newcasesChart" width="400" height="250" class="chart"></canvas></div>
+							<div class="col-md-6" id="casesChartDiv"><canvas id="casesChart" width="400" height="250" class="chart"></canvas></div>
+						</div>
+					</fieldset>
+					<!-- New Data Chart -->
+					<fieldset id="fieldsetDeathsDataChart">
+						<legend id="txtDeathsDataChart">DEATHS</legend>
+						<div class="row">
+							<div class="col-md-6" id="newdeathsChartDiv"><canvas id="newdeathsChart" width="400" height="250" class="chart"></canvas></div>
+							<div class="col-md-6" id="deathsChartDiv"><canvas id="deathsChart" width="400" height="250" class="chart"></canvas></div>
+						</div>
+					</fieldset>
+					<!-- New Data Chart -->
+					<fieldset id="fieldsetDoseVaccinatedDataChart">
+						<legend id="txtDoseVaccinatedDataChart">DOSE VACCINATED</legend>
+						<div class="row">
+						  <div class="col-md-6" id="newvaccineChartDiv"><canvas id="newvaccineChart" width="400" height="250" class="chart"></canvas></div>
+						  <div class="col-md-6" id="vaccineChartDiv"><canvas id="vaccineChart" width="400" height="250" class="chart"></canvas></div>
+						</div>
+					</fieldset>
+				</div>
+				
+				<!-- City/Province -->
+				<div id="CityProvince">
+					<fieldset id="fieldsetCasesDataChartCityProvince">
+						<legend id="txtCasesDataChartCityProvince">CASES</legend>
+						<div class="row">
+							<div class="col-md-6" id="newcasesChartCityProvinceDiv"><canvas id="newcasesChartCityProvince" width="400" height="250" class="chart"></canvas></div>
+							<div class="col-md-6" id="casesChartCityProvinceDiv"><canvas id="casesChartCityProvince" width="400" height="250" class="chart"></canvas></div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<!-- Modal -->
+	<!-- Popup Map -->
+	<div class="modal fade" id="viewModalMap" role="dialog">
+		<div class="modal-dialog modal-xl" role="content">
+			<div class="modal-content">
+				<!-- Header Modal-->
+				<div class="modal-header">
+					<h4 class="modal-title" id="nameMap"></h4><button class="close" type="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- Vietnam Map -->
+				<div class="modal-body row" style="width:100%; margin:auto;">
+					<div class="map" id="map"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Popup AboutTheData -->
+	<div class="modal fade" id="viewModalData" role="dialog">
+		<div class="modal-dialog modal-xl" role="content">
+			<div class="modal-content">
+				<!-- Header Modal-->
+				<div class="modal-header">
+					<h4 class="modal-title" id="nameAbData"></h4><button class="close" type="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- AboutTheData -->
+				<div class="modal-body row">
+					<div class="col-md-9 col-12"><h5 id="aboutTheData"></h5></div>
+					<div class="col-md-3 col-12"><img id="imgCfmCovid"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Popup VaccineDetails -->
+	<div class="modal fade" id="viewModalVaccineDetails" role="dialog">
+		<div class="modal-dialog modal-xl" role="content">
+			<div class="modal-content">
+				<!-- Header Modal-->
+				<div class="modal-header">
+					<h4 class="modal-title" id="nameVaccineDetails"></h4><button class="close" type="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- About The Vaccine -->
+				<div class="modal-body row">
+					<div class="col-md-12 col-12"><h5 id="aboutTheVaccineDetails"></h5></div>
+					<div class="col-md-12 col-12"><img id="imgVaccineDetails"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Popup VaccineTechnology -->
+	<div class="modal fade" id="viewModalVaccine" role="dialog">
+		<div class="modal-dialog modal-xl" role="content">
+			<div class="modal-content">
+				<!-- Header Modal-->
+				<div class="modal-header">
+					<h4 class="modal-title" id="nameVaccine"></h4><button class="close" type="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- About The Vaccine -->
+				<div class="modal-body row">
+					<div class="col-md-12 col-12"><h5 id="aboutTheVaccine"></h5></div>
+					<div class="col-md-12 col-12"><img id="imgVaccine"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Popup CoronavirusVariant -->
+	<div class="modal fade" id="viewModalVariant" role="dialog">
+		<div class="modal-dialog modal-xl" role="content">
+			<div class="modal-content">
+				<!-- Header Modal-->
+				<div class="modal-header">
+					<h4 class="modal-title" id="nameVariant"></h4><button class="close" type="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- About The Variant -->
+				<div class="modal-body row">
+					<div class="col-md-12 col-12"><h5 id="aboutTheVariant"></h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Popup TreatmentMedicine -->
+	<div class="modal fade" id="viewModalMedicine" role="dialog">
+		<div class="modal-dialog modal-xl" role="content">
+			<div class="modal-content">
+				<!-- Header Modal-->
+				<div class="modal-header">
+					<h4 class="modal-title" id="nameMedicine"></h4><button class="close" type="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- About The Medicine -->
+				<div class="modal-body row">
+					<div class="col-md-12 col-12"><h5 id="aboutTheMedicine"></h5></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Popup Software Info -->
+	<div class="modal fade" id="viewModalGuide" role="dialog">
+		<div class="modal-dialog modal-xl SoftwareInfo" role="content">
+			<div class="modal-content">
+				<!-- Header Modal-->
+				<div class="modal-header">
+					<h4 class="modal-title" id="nameGuide"></h4><button class="close" type="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- About Software Info -->
+				<div class="modal-body">
+					<table class="table table-bordered">
+						<tbody id="aboutGuide"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<div class="footer" id="footer"><span id="designedBy"></span><a href="index.html" target="">Back to Home</a></div>
+	
+	<!-- Scripts -->
+	<!-- ChartJS CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<!-- Functions -->
+	<script src="./js/functions/detailVN.js"></script>
+	<script src="./js/functions/popupModal.js"></script>
+	<script src="./js/functions/darkMode.js"></script>
+	<script src="./js/functions/filterTable.js"></script>
+	<script src="./js/functions/sortTable.js"></script>
+	<script src="./js/functions/switchTracker.js"></script>
+	<script src="./js/functions/switchLangs.js"></script>
+	<script src="./js/functions/scrollTop.js"></script>
+	<!-- Simplemap -->
+	<script src="./js/simpleMap/main.js"></script>
+	<script src="./js/simpleMap/position.js"></script>
+    <script src="./js/simpleMap/libs.js"></script>
+</body>
+</html>
